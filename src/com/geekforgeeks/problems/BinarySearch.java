@@ -56,7 +56,7 @@ public class BinarySearch {
 			return -1;
 
 		for (int i = 0; i < arr.length; i++) {
-			System.out.println("Execution " + (i + 1));
+
 			if (arr[mid] != k && mid - 1 == low && mid + 1 == high)
 				return -1;
 
