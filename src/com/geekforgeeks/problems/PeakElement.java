@@ -61,7 +61,7 @@ public class PeakElement {
 				index = i;
 				break;
 			}
-			if ((i > 0 && arr[i] > arr[i - 1]) && (i < n - 1 && arr[i] > arr[i + 1])) {
+			if ((i > 0 && arr[i] > arr[i - 1]) && (i < n - 1 && arr[i] >= arr[i + 1])) {
 				index = i;
 				break;
 			}
