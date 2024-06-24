@@ -2,91 +2,53 @@ package com.dsa.sorting;
 
 public class MergeSort {
 
-    public void mergeSort(int[] arr) {
-
-        //declaring the length of the original array
-        int inputLength = arr.length;
-
-        //checking the length of the array should be greater than 1 otherwise it is considered as already sorted
-        if (inputLength >= 2) {
-            int midIndex = inputLength / 2;
-
-            //creating left array
-            int[] leftArray = new int[midIndex];
-            //creating right array
-            int[] rightArray = new int[inputLength - midIndex];
-
-            //populating elements into left array
-            for (int i = 0; i < midIndex; i++) {
-                leftArray[i] = arr[i];
-            }
-
-            //populating elements into right array
-            for (int i = midIndex; i < inputLength; i++) {
-                rightArray[i - midIndex] = arr[i];
-            }
-
-            //recursively divide left array
-            mergeSort(leftArray);
-
-            //recursively divide right array
-            mergeSort(rightArray);
-
-            //merge the sorted arrays
-            merge(arr, leftArray, rightArray);
-        }
+    public void mergeSort(int[] input) {
+        mergeSort(input, 0, input.length);
     }
 
-    private void merge(int[] arr, int[] leftArray, int[] rightArray) {
+    private void mergeSort(int[] input, int start, int end) {
+        // recursion break condition
+        if (end - start < 2) {
+            return;
+        }
+        int mid = (start + end) / 2;
+        // split left part of the array
+        mergeSort(input, start, mid);
+        // split right part of the array
+        mergeSort(input, mid, end);
 
-        //declaring size of left array
-        int leftSize = leftArray.length;
+        // merge and sort the divided arrays
+        merge(input, start, mid, end);
+    }
 
-        //declaring size of right array
-        int rightSize = rightArray.length;
+    private void merge(int[] input, int start, int mid, int end) {
+        // if the last element of the left array lesser than first element of right array
+        // then we can confirm that both arrays together are sorted and no merge required
+        if (input[mid - 1] <= input[mid]) {
+            return;
+        }
+        int i = start;
+        int j = mid;
 
-        //declaring iterating counts for leftArray i, rightArray j and originalArray k
-        int i = 0, j = 0, k = 0;
+        int[] tempArray = new int[end - start];
+        int tempIndex = 0;
 
-        //comparing left and right array and adding the elements into the original array in sorted order
-        while (i < leftSize && j < rightSize) {
-            if (leftArray[i] <= rightArray[j]) {
-                arr[k] = leftArray[i];
-                i++;
+        while (i < mid && j < end) {
+            tempArray[tempIndex++] = input[i] <= input[j] ? input[i++] : input[j++];
+        }
+
+        // copying the remaining elements from either left or right array to the tempArray
+        while (true) {
+            if (i < mid) {
+                tempArray[tempIndex++] = input[i++];
+            } else if (j < end) {
+                tempArray[tempIndex++] = input[j++];
             } else {
-                arr[k] = rightArray[j];
-                j++;
-            }
-            k++;
-        }
-
-        //cleaning the left array with remaining elements by putting it into the original array
-        while (i < leftSize) {
-            arr[k] = leftArray[i];
-            i++;
-            k++;
-        }
-
-        //cleaning the right array with remaining elements by putting it into the original array
-        while (j < rightSize) {
-            arr[k] = rightArray[j];
-            j++;
-            k++;
-        }
-    }
-
-    public boolean isSorted(int[] arr) {
-        if (arr.length < 2) {
-            return true;
-        }
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] <= arr[i + 1]) {
-                continue;
-            } else {
-                return false;
+                break;
             }
         }
-        return true;
-    }
 
+        // copying tempArray to the original array
+        System.arraycopy(tempArray, 0, input, start, end - start);
+    }
 }
