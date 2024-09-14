@@ -67,12 +67,12 @@ public class CheckForBST {
             return true;
         }
 
-        return inOrderlyAddToStack(root);
+        return inOrderlyTraverseToCheckBST(root);
     }
 
-    static boolean inOrderlyAddToStack(Node subTree) {
+    static boolean inOrderlyTraverseToCheckBST(Node subTree) {
         if (subTree != null) {
-            if (!inOrderlyAddToStack(subTree.left)) {
+            if (!inOrderlyTraverseToCheckBST(subTree.left)) {
                 return false;
             }
 
@@ -81,7 +81,7 @@ public class CheckForBST {
             }
             prev = subTree;
 
-            if (!inOrderlyAddToStack(subTree.right)) {
+            if (!inOrderlyTraverseToCheckBST(subTree.right)) {
                 return false;
             }
         }
