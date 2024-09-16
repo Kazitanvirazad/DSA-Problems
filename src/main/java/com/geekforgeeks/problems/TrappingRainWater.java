@@ -21,7 +21,8 @@ package com.geekforgeeks.problems;
  * parameters and returns the total amount of water that can be trapped.
  * 
  * 
- * Expected Time Complexity: O(N) Expected Auxiliary Space: O(N)
+ * Expected Time Complexity: O(N)
+ * Expected Auxiliary Space: O(N)
  * 
  * 
  * Constraints: 3 < N < 106 0 < Ai < 108
