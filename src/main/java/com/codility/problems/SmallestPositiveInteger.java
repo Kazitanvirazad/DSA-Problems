@@ -1,8 +1,6 @@
 package com.codility.problems;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * class Solution { public int solution(int[] A); } that, given an array A of N
@@ -15,43 +13,37 @@ import java.util.List;
  */
 public class SmallestPositiveInteger {
 
-	public static void main(String[] args) {
-		int[] A = { 1, 3, 6, 4, 1, 2 };
+    public static void main(String[] args) {
+        int[] A = {1, 3, 6, 4, 1, 2};
 //		int[] A = { 1, 2, 3 };
 //		int[] A = { -1, -3 };
-		System.out.println(solution(A));
-	}
+        System.out.println(solution(A));
+    }
 
-	public static int solution(int[] A) {
+    public static int solution(int[] A) {
 
-		List<Integer> sorted = new ArrayList<>() {
-			{
-				for (Integer i : A) {
-					if (isEligible(i) && !contains(i))
-						add(i);
-				}
-			}
-		};
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int i = 0; i < A.length; i++) {
+            if (A[i] > 0) {
+                minHeap.add(A[i]);
+            }
+        }
 
-		Collections.sort(sorted);
+        if (minHeap.isEmpty() || minHeap.peek() != 1) {
+            return 1;
+        }
 
-		int smallestNum = 1;
-		for (int i = 1; i <= sorted.size() + 1; i++) {
-			if (!sorted.contains(i)) {
-				smallestNum = i;
-			}
-		}
+        int top = minHeap.poll();
 
-		if (sorted.size() == 0)
-			return 1;
+        int lastElement = top;
+        while (!minHeap.isEmpty()) {
+            int current = minHeap.poll();
+            if (current - lastElement > 1) {
+                return ++lastElement;
+            }
+            lastElement = current;
+        }
 
-		return smallestNum;
-	}
-
-	public static boolean isEligible(int num) {
-		if (num > 0)
-			return true;
-		return false;
-	}
-
+        return ++lastElement;
+    }
 }
