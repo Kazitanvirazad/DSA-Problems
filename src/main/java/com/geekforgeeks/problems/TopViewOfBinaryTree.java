@@ -62,6 +62,12 @@ public class TopViewOfBinaryTree {
                 break;
             }
         }
+
+        //resetting
+        leftShadowDepthCount = 0;
+        rightShadowDepthCount = 0;
+        stack = new Stack<>();
+        queue = new LinkedList<>();
         return res;
     }
 
