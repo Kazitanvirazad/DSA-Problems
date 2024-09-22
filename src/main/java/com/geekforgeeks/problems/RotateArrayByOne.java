@@ -1,5 +1,8 @@
 package com.geekforgeeks.problems;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Given an array arr, rotate the array by one position in clock-wise direction.
  *
@@ -31,25 +34,18 @@ public class RotateArrayByOne {
         }
         int rotateBy = 1;
 
-        int startIndex = arr.length - 1 - rotateBy;
-        int endIndex = startIndex - 1;
-        int index = 0;
-        int leftIndex = -1;
+        Queue<Integer> queue = new LinkedList<>();
+        int startIndex = (arr.length) - rotateBy;
 
-        int temp = arr[startIndex];
-        while (index < arr.length && leftIndex <= endIndex) {
-            if (startIndex >= arr.length - 1) {
-                int next = arr[leftIndex + 1];
-                arr[leftIndex + 1] = temp;
-                temp = next;
-                leftIndex++;
-            } else {
-                int next = arr[startIndex + 1];
-                arr[startIndex + 1] = temp;
-                temp = next;
-                startIndex++;
-            }
-            index++;
+        for (int i = startIndex; i < arr.length; i++) {
+            queue.add(arr[i]);
+        }
+        for (int i = 0; i < startIndex; i++) {
+            queue.add(arr[i]);
+            arr[i] = queue.poll();
+        }
+        for (int i = startIndex; i < arr.length && !queue.isEmpty(); i++) {
+            arr[i] = queue.poll();
         }
     }
 }
