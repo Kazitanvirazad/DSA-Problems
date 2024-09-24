@@ -1,7 +1,5 @@
 package com.geekforgeeks.problems;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -23,26 +21,25 @@ import java.util.Stack;
  */
 public class PalindromeLinkedList {
     public boolean isPalindrome(Node head) {
-        Queue<Integer> queue = new LinkedList<>();
-        Stack<Integer> stack = new Stack<>();
-
-        if (head.next == null) {
-            return true;
-        }
+        Stack<Node> stack = new Stack<>();
 
         Node current = head;
         while (current != null) {
-            queue.add(current.data);
-            stack.add(current.data);
+            stack.add(current);
             current = current.next;
         }
 
-        while (!queue.isEmpty() || !stack.isEmpty()) {
-            if (!queue.poll().equals(stack.pop())) {
-                return false;
+        boolean isPalindrome = true;
+        current = head;
+        while (!stack.isEmpty()) {
+            if (stack.peek().data != current.data) {
+                isPalindrome = false;
+                break;
             }
+            current = current.next;
+            stack.pop();
         }
-        return true;
+        return isPalindrome;
     }
 
     class Node {
