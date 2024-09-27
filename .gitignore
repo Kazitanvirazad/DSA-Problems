@@ -4,6 +4,7 @@ practice/
 
 .classpath
 .project
+.settings/
 
 .idea
 /out
