@@ -16,17 +16,35 @@ package com.geekforgeeks.problems;
  * Expected Auxiliary Space: O(1)
  */
 public class LCMAndGCD {
+    public static void main(String[] args) {
+        Long[] lcmAndGcd = lcmAndGcd(14L, 8L);
+        System.out.println(lcmAndGcd[0] + " " + lcmAndGcd[1]);
+    }
+
     public static Long[] lcmAndGcd(Long A, Long B) {
         Long[] res = new Long[2];
         res[1] = gcd(A, B);
+//        res[1] = gcd_iteration(A, B);
         res[0] = (A * B) / res[1];
         return res;
     }
 
+    // recursion
     public static Long gcd(Long A, Long B) {
         if (B == 0) {
             return A;
         }
         return gcd(B, A % B);
+    }
+
+    // iteration
+    public static Long gcd_iteration(Long A, Long B) {
+        long temp = 0;
+        while (B != 0) {
+            temp = B;
+            B = A % B;
+            A = temp;
+        }
+        return A;
     }
 }
