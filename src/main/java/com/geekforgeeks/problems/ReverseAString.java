@@ -24,6 +24,7 @@ public class ReverseAString {
         System.out.println(reverse(s));
     }
 
+    // iteration
     public static String reverseWord(String str) {
         String res = "";
         char[] charArr = str.toCharArray();
@@ -34,6 +35,7 @@ public class ReverseAString {
         return res;
     }
 
+    // recursion
     public static String reverse(String str) {
         if (str.isEmpty()) {
             return str;
