@@ -18,18 +18,26 @@ package com.geekforgeeks.problems;
  */
 public class ReverseAString {
 
-	public static void main(String[] args) {
-		String s = "for";
-		System.out.println(reverseWord(s));
-	}
+    public static void main(String[] args) {
+        String s = "fahim";
+        //System.out.println(reverseWord(s));
+        System.out.println(reverse(s));
+    }
 
-	public static String reverseWord(String str) {
-		String res = "";
-		char[] charArr = str.toCharArray();
+    public static String reverseWord(String str) {
+        String res = "";
+        char[] charArr = str.toCharArray();
 
-		for (int i = charArr.length - 1; i >= 0; i--) {
-			res += charArr[i];
-		}
-		return res;
-	}
+        for (int i = charArr.length - 1; i >= 0; i--) {
+            res += charArr[i];
+        }
+        return res;
+    }
+
+    public static String reverse(String str) {
+        if (str.isEmpty()) {
+            return str;
+        }
+        return reverse(str.substring(1)) + str.charAt(0);
+    }
 }
