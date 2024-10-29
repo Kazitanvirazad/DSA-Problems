@@ -45,9 +45,9 @@ public class QuickSortOnLinkedList {
             }
             current = current.next;
         }
-        int currentData = pivot.data;
+        int temp = pivot.data;
         pivot.data = previous.data;
-        previous.data = currentData;
+        previous.data = temp;
         return previous;
     }
 
