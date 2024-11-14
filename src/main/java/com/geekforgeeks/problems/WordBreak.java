@@ -1,6 +1,7 @@
 package com.geekforgeeks.problems;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Given a string s and a dictionary of n words dictionary, find out if "s" can be segmented into a
@@ -21,6 +22,15 @@ import java.util.ArrayList;
  * Expected Space Complexity: O(len(s))
  */
 public class WordBreak {
+    public static void main(String[] args) {
+        String str1 = "catsandog";
+        ArrayList<String> list1 = new ArrayList<>(Arrays.asList("cats", "cat", "and", "sand", "dog"));
+        System.out.println(wordBreak(list1.size(), str1, list1));
+        String str2 = "catsanddog";
+        ArrayList<String> list2 = new ArrayList<>(Arrays.asList("cats", "cat", "and", "sand", "dog"));
+        System.out.println(wordBreak(list2.size(), str2, list2));
+    }
+
     public static int wordBreak(int n, String s, ArrayList<String> dictionary) {
         int length = s.length();
         boolean[] wordsFoundFlags = new boolean[length + 1];
