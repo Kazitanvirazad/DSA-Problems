@@ -403,7 +403,6 @@ public class SecondLargest {
 			}
 
 		}
-		System.out.println(largestElement);
 		return secondLargestElement;
 	}
 }
