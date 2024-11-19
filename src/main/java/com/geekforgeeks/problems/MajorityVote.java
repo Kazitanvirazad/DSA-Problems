@@ -1,6 +1,7 @@
 package com.geekforgeeks.problems;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,13 +21,12 @@ import java.util.List;
  */
 public class MajorityVote {
     public static void main(String[] args) {
-        String[] str = "2, 1, 5, 5, 5, 5, 6, 6, 6, 6, 6".split(",");
-        List<Integer> nums = new ArrayList<>();
-        for (int i = 0; i < str.length; i++) {
-            nums.add(Integer.parseInt(str[i].trim()));
-        }
+        List<Integer> nums1 = Arrays.asList(2, 1, 5, 5, 5, 5, 6, 6, 6, 6, 6);
+        List<Integer> nums2 = Arrays.asList(1, 2, 3);
+        List<Integer> nums3 = Arrays.asList(1, 3);
+        List<Integer> nums4 = Arrays.asList(2, 1, 6, 6, 6, 6, 6, 5, 5, 5, 5);
         MajorityVote vote = new MajorityVote();
-        List<Integer> res = vote.findMajority(nums);
+        List<Integer> res = vote.findMajority(nums4);
         res.forEach(ele -> System.out.print(ele + " "));
     }
 
