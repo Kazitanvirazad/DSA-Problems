@@ -23,6 +23,8 @@ public class RotateArray2 {
         print(arr4);
     }
 
+    // Time Complexity = O(n+d) [where d is always less than n]
+    // Space Complexity = O(d) [where d is always less than n]
     public static void rotateArr(int[] arr, int d) {
         if (d == arr.length) {
             return;
@@ -32,13 +34,16 @@ public class RotateArray2 {
         }
         Queue<Integer> queue = new LinkedList<>();
         int index;
+        // O(d)
         for (index = 0; index < d; index++) {
             queue.add(arr[index]);
         }
+        //O(n-d)
         while (index < arr.length) {
             arr[index - d] = arr[index];
             index++;
         }
+        // O(d)
         for (int i = arr.length - d; i < arr.length; i++) {
             arr[i] = queue.poll();
         }
