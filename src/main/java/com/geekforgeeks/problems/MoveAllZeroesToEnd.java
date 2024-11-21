@@ -17,8 +17,46 @@ package com.geekforgeeks.problems;
  * Explanation: Since there are no 0s, the array does not change.
  */
 public class MoveAllZeroesToEnd {
-    public void pushZerosToEnd(int[] arr) {
-        // code here
+    public static void main(String[] args) {
+        int[] arr1 = {3, 5, 0, 0, 4};
+        pushZerosToEnd2(arr1);
+        print(arr1);
+        int[] arr2 = {0, 0, 0, 4};
+        pushZerosToEnd2(arr2);
+        print(arr2);
+        int[] arr3 = {10, 2, 4};
+        pushZerosToEnd2(arr3);
+        print(arr3);
+        int[] arr4 = {3, 5, 0, 0, 4, 5, 0, 0, 0, 0, 0, 2, 0};
+        pushZerosToEnd2(arr4);
+        print(arr4);
+    }
+
+    private static void print(int[] arr) {
+        for (int ele : arr) {
+            System.out.print(ele + " ");
+        }
+        System.out.println();
+    }
+
+    public static void pushZerosToEnd2(int[] arr) {
+        int fastIndex = 0;
+        int slowIndex = 0;
+        while (fastIndex < arr.length) {
+            if (arr[slowIndex] != 0) {
+                slowIndex++;
+            } else {
+                if (arr[fastIndex] != 0) {
+                    arr[slowIndex] = arr[fastIndex];
+                    arr[fastIndex] = 0;
+                    slowIndex++;
+                }
+            }
+            fastIndex++;
+        }
+    }
+
+    public static void pushZerosToEnd(int[] arr) {
         int i = 0;
         int j = 0;
 
