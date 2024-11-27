@@ -43,8 +43,58 @@ public class ImplementAtoi {
         return isNegative ? res * -1 : res;
     }
 
-    public boolean isDigit(char character) {
+    private boolean isDigit(char character) {
         int ascii = (int) character;
         return ascii > 47 && ascii < 58;
+    }
+
+    public int atoi(String s) {
+        boolean isNegative = false;
+        boolean hasNegOrPosCharOccurred = false;
+
+        int number = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char currentChar = s.charAt(i);
+            int currentCharNumber = currentChar - '0';
+            if (currentCharNumber >= 0 && currentCharNumber <= 9) {
+                if (number * 10 + currentCharNumber < 0) {
+                    number = Integer.MAX_VALUE;
+                    break;
+                }
+                number = number * 10 + currentCharNumber;
+            } else {
+                if (currentChar == ' ') {
+                    continue;
+                }
+                if ((currentChar == '-' || currentChar == '+') && number != 0) {
+                    break;
+                }
+                if (currentChar == '-') {
+                    if (hasNegOrPosCharOccurred) {
+                        break;
+                    }
+                    hasNegOrPosCharOccurred = true;
+                    isNegative = true;
+                    continue;
+                }
+                if (currentChar == '+') {
+                    if (hasNegOrPosCharOccurred) {
+                        break;
+                    }
+                    hasNegOrPosCharOccurred = true;
+                    isNegative = false;
+                    continue;
+                }
+                if (currentChar > 57 || currentChar < 48) {
+                    break;
+                }
+            }
+        }
+
+        if (number == Integer.MAX_VALUE) {
+            return isNegative ? Integer.MIN_VALUE : number;
+        } else {
+            return isNegative && number > 0 ? number * -1 : number;
+        }
     }
 }
