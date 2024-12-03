@@ -58,7 +58,7 @@ public class StringsRotationsOfEachOther {
         return false;
     }
 
-    public static int[] getLpsArray(String pattern) {
+    private static int[] getLpsArray(String pattern) {
         int n = pattern.length();
         int[] lps = new int[n];
 
