@@ -2,8 +2,8 @@ package com.leetcode.problems;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -37,7 +37,7 @@ import java.util.Set;
 public class NQueens {
     public static void main(String[] args) {
         NQueens queens = new NQueens();
-        queens.solveNQueens(4);
+        System.out.println(queens.solveNQueens(4));
     }
 
     public List<List<String>> solveNQueens(int n) {
@@ -55,43 +55,40 @@ public class NQueens {
 
     private class NQueensProblem {
         private int numOfQueens;
-        private Integer[][] chessBoard;
-        private Set<Integer[][]> usedChessBoard;
+        private int[][] chessBoard;
+        private Set<ColumnRowStore> columnRowStores;
 
         public NQueensProblem(int numOfQueens) {
             this.numOfQueens = numOfQueens;
-            this.chessBoard = new Integer[numOfQueens][numOfQueens];
-            resetChessBoard();
-            this.usedChessBoard = new HashSet<>();
-        }
-
-        private void resetChessBoard() {
-            for (int i = 0; i < chessBoard.length; i++) {
-                for (int j = 0; j < chessBoard[i].length; j++) {
-                    chessBoard[i][j] = 0;
-                }
-            }
+            this.chessBoard = new int[numOfQueens][numOfQueens];
+            this.columnRowStores = new HashSet<>();
         }
 
         public List<String> solve() {
             List<String> queens = new ArrayList<>();
-            if (setQueen(0)) {
+            ColumnRowStore columnRowStore = new ColumnRowStore();
+            if (setQueen(0, columnRowStore)) {
+                columnRowStores.add(columnRowStore);
                 addQueens(queens);
             }
             return queens;
         }
 
-        private boolean setQueen(int colIndex) {
+        private boolean setQueen(int colIndex, ColumnRowStore columnRowStore) {
             if (colIndex == numOfQueens) {
-                return !isBoardAlreadyUsed();
+                return !isBoardAlreadyUsed(columnRowStore);
             }
             for (int rowIndex = 0; rowIndex < chessBoard.length; rowIndex++) {
                 if (isPlaceValid(colIndex, rowIndex)) {
                     chessBoard[rowIndex][colIndex] = 1;
-                    if (setQueen(colIndex + 1)) {
+                    columnRowStore.addCol(colIndex);
+                    columnRowStore.addRow(rowIndex);
+                    if (setQueen(colIndex + 1, columnRowStore)) {
                         return true;
                     } else {
                         chessBoard[rowIndex][colIndex] = 0;
+                        columnRowStore.subtractCol();
+                        columnRowStore.subtractRow();
                     }
                 }
             }
@@ -117,28 +114,8 @@ public class NQueens {
             return true;
         }
 
-        private boolean isBoardAlreadyUsed() {
-            Iterator<Integer[][]> usedChessBoardIterator = usedChessBoard.iterator();
-            while (usedChessBoardIterator.hasNext()) {
-                Integer[][] usedBoard = usedChessBoardIterator.next();
-                if (isChessBoardUsed(usedBoard)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private boolean isChessBoardUsed(Integer[][] used) {
-            boolean isChessBoardUsed = true;
-            for (int i = 0; i < chessBoard.length && isChessBoardUsed; i++) {
-                for (int j = 0; j < chessBoard[i].length; j++) {
-                    if (used[i][j] != chessBoard[i][j]) {
-                        isChessBoardUsed = false;
-                        break;
-                    }
-                }
-            }
-            return isChessBoardUsed;
+        private boolean isBoardAlreadyUsed(ColumnRowStore columnRowStore) {
+            return columnRowStores.contains(columnRowStore);
         }
 
         private void addQueens(List<String> queens) {
@@ -147,24 +124,51 @@ public class NQueens {
                 for (int j = 0; j < chessBoard[i].length; j++) {
                     if (chessBoard[i][j] == 1) {
                         queen += "Q";
-                    } else if (chessBoard[i][j] == 0 || chessBoard[i][j] == null) {
+                    } else if (chessBoard[i][j] == 0) {
                         queen += ".";
                     }
                 }
                 queens.add(queen);
             }
-            shallowCopyChessBoard(chessBoard);
-            resetChessBoard();
+            this.chessBoard = new int[numOfQueens][numOfQueens];
         }
 
-        private void shallowCopyChessBoard(Integer[][] board) {
-            Integer[][] newBoard = new Integer[board.length][board.length];
-            for (int i = 0; i < board.length; i++) {
-                for (int j = 0; j < board[i].length; j++) {
-                    newBoard[i][j] = board[i][j];
-                }
+        class ColumnRowStore {
+            int colSum;
+            int rowSum;
+
+            public ColumnRowStore() {
+                this.colSum = 0;
+                this.rowSum = 0;
             }
-            usedChessBoard.add(newBoard);
+
+            void addCol(int col) {
+                colSum = colSum * 10 + col;
+            }
+
+            void addRow(int row) {
+                rowSum = rowSum * 10 + row;
+            }
+
+            void subtractCol() {
+                colSum /= 10;
+            }
+
+            void subtractRow() {
+                rowSum /= 10;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                return obj instanceof ColumnRowStore && (obj == this ||
+                        (((ColumnRowStore) obj).colSum == this.colSum &&
+                                ((ColumnRowStore) obj).rowSum == this.rowSum));
+            }
+
+            @Override
+            public int hashCode() {
+                return Objects.hash(this.colSum, this.rowSum);
+            }
         }
     }
 }
