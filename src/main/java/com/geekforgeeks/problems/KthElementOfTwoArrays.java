@@ -1,6 +1,5 @@
 package com.geekforgeeks.problems;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,6 +60,30 @@ public class KthElementOfTwoArrays {
 
 		return unionArr.get(k - 1);
 
+	}
+
+	public static int kthElement(int[] a, int[] b, int k) {
+		int[] mergedArray = merge(a, b);
+		return mergedArray[k - 1];
+	}
+
+	private static int[] merge(int[] a, int[] b) {
+		int[] mergedArray = new int[a.length + b.length];
+		int tempIndex = 0;
+		int i = 0, j = 0;
+		while (i < a.length && j < b.length) {
+			mergedArray[tempIndex++] = a[i] <= b[j] ? a[i++] : b[j++];
+		}
+		while (true) {
+			if (i < a.length) {
+				mergedArray[tempIndex++] = a[i++];
+			} else if (j < b.length) {
+				mergedArray[tempIndex++] = b[j++];
+			} else {
+				break;
+			}
+		}
+		return mergedArray;
 	}
 
 	public static void main(String[] args) {

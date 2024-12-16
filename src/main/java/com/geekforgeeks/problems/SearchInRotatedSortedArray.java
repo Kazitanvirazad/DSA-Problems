@@ -75,6 +75,7 @@ public class SearchInRotatedSortedArray {
         }
     }
 
+
     private static int binarySearch(int[] arr, int elementToSearch, int lowIndex, int highIndex) {
         if (lowIndex <= highIndex) {
             int midPosition = (highIndex + lowIndex) / 2;
@@ -87,6 +88,25 @@ public class SearchInRotatedSortedArray {
             }
         } else {
             return -1;
+        }
+    }
+
+    public static int searchAlternate(int[] arr, int key) {
+        if (arr[0] <= arr[arr.length - 1]) {
+            return binarySearch(arr, 0, arr.length - 1, key);
+        } else {
+            int start = 0;
+            for (int i = 0; i < arr.length - 1; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    start = i + 1;
+                    break;
+                }
+            }
+            int position = binarySearch(arr, key, start, arr.length - 1);
+            if (position < 0 || arr[position] != key) {
+                return binarySearch(arr, key, 0, start - 1);
+            }
+            return position;
         }
     }
 }
