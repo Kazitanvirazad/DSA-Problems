@@ -28,7 +28,7 @@ import java.util.PriorityQueue;
  *
  * Constraints:
  * 0 <= number of nodes <= 50
- * 1 <= no. of nodes in sub-LinkesList(mi) <= 20
+ * 1 <= no. of nodes in sub-LinkedList(mi) <= 20
  * 1 <= node->data <= 103
  */
 public class FlatteningALinkedList {
