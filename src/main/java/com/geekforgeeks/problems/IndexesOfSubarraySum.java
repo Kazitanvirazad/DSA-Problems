@@ -1,6 +1,8 @@
 package com.geekforgeeks.problems;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Given an unsorted array arr of size n that contains only non negative integers, find a sub-array
@@ -61,5 +63,40 @@ public class IndexesOfSubarraySum {
             res.add(-1);
         }
         return res;
+    }
+
+    /* Simpler and efficient approach */
+    public static ArrayList<Integer> subarraySum(int[] arr, int target) {
+        if (arr[0] == target) {
+            return new ArrayList<>(Arrays.asList(1, 1));
+        }
+        if (arr.length == 1) {
+            return new ArrayList<>(List.of(-1));
+        }
+        int startIndex = 0;
+        int endIndex = 1;
+        int currentSum = arr[0];
+
+        while (startIndex < arr.length && endIndex < arr.length) {
+            if (currentSum + arr[endIndex] < target) {
+                currentSum += arr[endIndex];
+                endIndex++;
+                continue;
+            }
+            if (currentSum + arr[endIndex] == target) {
+                currentSum += arr[endIndex];
+                endIndex++;
+                break;
+            } else {
+                currentSum -= arr[startIndex];
+                startIndex++;
+            }
+        }
+
+        if (currentSum == target) {
+            return new ArrayList<>(Arrays.asList(startIndex + 1, endIndex));
+        } else {
+            return new ArrayList<>(List.of(-1));
+        }
     }
 }
