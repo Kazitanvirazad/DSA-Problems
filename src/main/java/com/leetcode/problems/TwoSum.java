@@ -1,5 +1,6 @@
 package com.leetcode.problems;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,5 +49,33 @@ public class TwoSum {
             map.put(nums[i], i);
         }
         return res;
+    }
+
+    // Same problem with boolean return
+    public boolean findTwoSum(int arr[], int target) {
+        // code here
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (binarySearch(arr, i + 1, arr.length - 1, target - arr[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean binarySearch(int[] arr, int start, int end, int target) {
+        if (start <= end) {
+            int mid = (end + start) / 2;
+            if (arr[mid] == target) {
+                return true;
+            }
+            if (arr[mid] < target) {
+                return binarySearch(arr, mid + 1, end, target);
+            } else {
+                return binarySearch(arr, start, mid - 1, target);
+            }
+        } else {
+            return false;
+        }
     }
 }
