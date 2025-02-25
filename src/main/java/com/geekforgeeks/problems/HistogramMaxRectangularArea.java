@@ -36,14 +36,14 @@ public class HistogramMaxRectangularArea {
     }
 
     public static int getMaxArea(int[] arr) {
-        int res = 0;
+        int finalArea = 0;
         Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < arr.length; i++) {
             // check area for top element of the stack x current index if stack is empty or current index - stack top index - 1
             while (!stack.empty() && arr[stack.peek()] >= arr[i]) {
                 int currentIndex = stack.pop();
-                int value = arr[currentIndex] * (stack.empty() ? i : (i - stack.peek() - 1));
-                res = Math.max(res, value);
+                int area = arr[currentIndex] * (stack.empty() ? i : (i - stack.peek() - 1));
+                finalArea = Math.max(finalArea, area);
             }
             // else push current index in to the stack
             stack.push(i);
@@ -52,9 +52,9 @@ public class HistogramMaxRectangularArea {
         // process remaining elements in the stack
         while (!stack.empty()) {
             int currentIndex = stack.pop();
-            int value = arr[currentIndex] * (stack.empty() ? arr.length : (arr.length - stack.peek() - 1));
-            res = Math.max(res, value);
+            int area = arr[currentIndex] * (stack.empty() ? arr.length : (arr.length - stack.peek() - 1));
+            finalArea = Math.max(finalArea, area);
         }
-        return res;
+        return finalArea;
     }
 }
