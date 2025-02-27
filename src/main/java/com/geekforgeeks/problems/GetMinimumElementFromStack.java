@@ -81,3 +81,50 @@ public class GetMinimumElementFromStack {
         s.add(x);
     }
 }
+
+class Solution {
+    private int[] stack;
+    private int top = -1;
+    private int minValue = Integer.MAX_VALUE;
+
+    public Solution() {
+        this.stack = new int[100000];
+    }
+
+    // Add an element to the top of Stack
+    public void push(int x) {
+        if (top < 0) {
+            minValue = Integer.MAX_VALUE;
+        }
+        stack[++top] = x;
+        minValue = Math.min(x, minValue);
+    }
+
+    // Remove the top element from the Stack
+    public void pop() {
+        if (top > -1) {
+            int elementToPop = stack[top];
+            top--;
+            minValue = Integer.MAX_VALUE;
+            for (int i = 0; i <= top; i++) {
+                minValue = Math.min(stack[i], minValue);
+            }
+        }
+    }
+
+    // Returns top element of the Stack
+    public int peek() {
+        if (top > -1) {
+            return stack[top];
+        }
+        return -1;
+    }
+
+    // Finds minimum element of Stack
+    public int getMin() {
+        if (top < 0) {
+            return -1;
+        }
+        return minValue;
+    }
+}
