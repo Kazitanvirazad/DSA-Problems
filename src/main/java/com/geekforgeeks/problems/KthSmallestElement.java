@@ -32,8 +32,10 @@ public class KthSmallestElement {
     public static void main(String[] args) {
 //        int arr[] = {7, 10, 4, 3, 20, 15}; // 7
 //        int k = 3;
-        int arr[] = {7, 10, 4, 20, 15}; // 15
-        int k = 4;
+//        int arr[] = {7, 10, 4, 20, 15}; // 15
+//        int k = 4;
+        int arr[] = {5, 9, 1, 8, 10, 6, 4};
+        int k = 5;
         System.out.println(kthSmallest(arr, k));
     }
 

@@ -8,7 +8,7 @@ import java.util.Arrays;
  * space-separated sequence of dictionary words.
  * Return 1 if it is possible to break the s into a sequence of dictionary words, else return 0.
  *
- * Note: From the dictionary dictionary each word can be taken any number of times and in any order.
+ * Note: From the dictionary each word can be taken any number of times and in any order.
  *
  * Examples :
  *
