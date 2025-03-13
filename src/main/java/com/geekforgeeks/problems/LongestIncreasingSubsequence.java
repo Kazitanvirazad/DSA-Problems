@@ -3,7 +3,6 @@ package com.geekforgeeks.problems;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Given an array arr[] of non-negative integers, the task is to find the length of the Longest Strictly
