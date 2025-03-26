@@ -47,7 +47,29 @@ public class MinimumPlatforms {
 
 //		int arr[] = { 900, 1100, 1235 };
 //		int dep[] = { 1000, 1200, 1240 };
-		System.out.println(findPlatform(arr, dep, arr.length));
+		System.out.println(findPlatform(arr, dep));
+	}
+
+	/* Expected approach */
+	public static int findPlatform(int[] arr, int[] dep) {
+		int n = arr.length;
+		int res = 0;
+
+		Arrays.sort(arr);
+		Arrays.sort(dep);
+
+		int count = 0;
+		int j = 0;
+
+		for (int i = 0; i < n; i++) {
+			while (j < n && dep[j] < arr[i]) {
+				count--;
+				j++;
+			}
+			count++;
+			res = Math.max(res, count);
+		}
+		return res;
 	}
 
 	public static int findPlatform(int arr[], int dep[], int n) {
