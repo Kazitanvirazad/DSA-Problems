@@ -38,6 +38,25 @@ public class SmallestPositiveMissing {
         System.out.println(missingNumber(arr1, arr1.length));
         System.out.println(missingNumber(arr2, arr2.length));
     }
+	
+	// better approach
+	public int missingNumber(int[] arr) {
+        Arrays.sort(arr);
+        int smallestPositive = 1;
+        
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] <= 0) {
+                continue;
+            }
+            if (arr[i] == smallestPositive) {
+                smallestPositive++;
+            }
+            if (arr[i] > smallestPositive) {
+                return smallestPositive;
+            }
+        }
+        return smallestPositive;
+    }
 
     public static int missingNumber(int arr[], int size) {
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
