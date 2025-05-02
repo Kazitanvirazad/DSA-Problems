@@ -30,7 +30,6 @@ public class BitonicPoint {
         for (int i = 1; i < arr.length; i++) {
             if (arr[i] >= prev) {
                 prev = arr[i];
-                continue;
             } else {
                 return prev;
             }
