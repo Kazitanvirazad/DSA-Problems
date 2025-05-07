@@ -85,12 +85,10 @@ public class MissingElementOfAP {
             map.put(diff, map.getOrDefault(diff, 0) + 1);
         }
 
-        int diff = map
-                .entrySet()
-                .stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse(-1);
+        int diff = (arr[1] - arr[0] == arr[n - 1] - arr[n - 2]) ? arr[1] - arr[0] :
+                ((arr[1] - arr[0] == (arr[n - 1] - arr[0]) / n) ? arr[1] - arr[0] : arr[n - 1] - arr[n - 2]);
+
+        if (diff == 0) return arr[0];
 
         int prev = arr[0];
         for (int i = 1; i < n; i++) {
